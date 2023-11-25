@@ -17,8 +17,10 @@
     print_r($_FILES);
 
     echo "GLOBALS method <br>";
-    print_r($_GLOBALS);
+    // print_r($_GLOBALS);
 
+    echo "temp dir <br>";
+    echo sys_get_temp_dir();
 
 ?>
     </pre>
