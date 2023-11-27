@@ -25,9 +25,6 @@
             return session_decode($data);
         }
 
-
-
-
     }
 
     sessions::ses_start();

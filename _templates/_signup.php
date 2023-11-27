@@ -6,7 +6,7 @@ if (isset($_POST["first-name"]) && isset($_POST["last-name"]) && isset($_POST["e
     $lastName = $_POST["last-name"];
     $emailAddr = $_POST["email-addr"];
     $password = $_POST["password"];
-    signup($firstName, $lastName, $emailAddr, $password);
+    User::signup($firstName, $lastName, $emailAddr, $password);
     $is_signup = true;
 }
 
