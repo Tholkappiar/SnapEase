@@ -1,6 +1,29 @@
 <?php
-if (isset($_POST["login-email"])) {
-    print_r($_POST["login-email"]);
+if (isset($_POST["login-email"]) && isset($_POST['login-password'])) {
+    $email = $_POST['login-email'];
+    $password = $_POST['login-password'];
+    $user = User::login($email, $password);
+    print_r($user);
+
+    // get the session info
+
+    if(isset($_SESSION['is_loggedin'])){
+        $userdata = $_SESSION['is_loggedin'];
+        print("userdata : $userdata");
+        print("welcome back $userdata");
+    } else {
+        $user = User::login($email, $password);
+
+        if($user) {
+            print("login sucess <br>");
+            $_SESSION['is_loggedin'] = true;
+            $_SESSION['session_user'] = $user;
+        } else {
+            print("login failed <br>");
+        }
+        
+
+    }
 ?>
     
     <main class="container">

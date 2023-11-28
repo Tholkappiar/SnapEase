@@ -12,7 +12,7 @@ class Database
          *   check if the there is a connection else 
          *   if not create a new connection and return that , if already connected with the
          *   mysql server return the previous connection !
-        */
+         */
         if (Database::$conn == null) {
             // mysql connection
             $servername = "mysql.selfmade.ninja:3306";
@@ -20,10 +20,11 @@ class Database
             $password = "thols@123";
             $dbname = "SnapEase_Thols_SnapEase";
 
-            $conn = mysqli_connect($servername, $username, $password, $dbname);
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
             // Check connection
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
             } else {
                 Database::$conn = $conn;
                 // print ($conn);
