@@ -5,7 +5,10 @@ class User
     public static function signup($first_name, $last_name, $email_addr, $pass)
     {
         $conn = Database::getConnection();
-        $pass = md5($pass);
+        $options = [
+            'cost'=> 10,
+        ];
+        $pass = password_hash($pass, PASSWORD_BCRYPT, $options);
         $sql = "INSERT INTO _signup (first_name, last_name, email, password)
         VALUES ('$first_name', '$last_name', '$email_addr', '$pass')";
 
@@ -21,7 +24,7 @@ class User
     public static function login($email, $password){
 
         // md5 hash for the password
-        $password = md5($password);
+        // $password = md5($password);
         // query to be passed
         $query = "SELECT * FROM `_signup` WHERE `email` = '$email'";
         // database connection
@@ -32,8 +35,9 @@ class User
         if($result->num_rows == 1) {
             $row = $result->fetch_assoc();
 
-            if($row["password"] == $password) {
-                return $password;
+            if(password_verify($password, $row["password"])) {
+                session_start();
+                return $row['password'];
             }else{
                 return false;
             }

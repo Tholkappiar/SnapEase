@@ -9,10 +9,12 @@ if (isset($_POST["login-email"]) && isset($_POST['login-password'])) {
 
     if(isset($_SESSION['is_loggedin'])){
         $userdata = $_SESSION['is_loggedin'];
+        $user = $_SESSION['session_user'];
+        print "<br> this is the second time <br>";
         print("userdata : $userdata");
-        print("welcome back $userdata");
+        print("welcome back $user");
     } else {
-        $user = User::login($email, $password);
+        // $user = User::login($email, $password);
 
         if($user) {
             print("login sucess <br>");
