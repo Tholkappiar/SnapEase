@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST["login-email"]) && isset($_POST['login-password'])) {
+if (isset($_POST["login-email"]) && isset($_POST['login-password']) && (!empty($_POST['login-password'])) && (!empty($_POST['login-email']))) {
     $email = $_POST['login-email'];
     $password = $_POST['login-password'];
     $user = User::login($email, $password);

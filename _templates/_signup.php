@@ -31,7 +31,7 @@ if ($is_signup) { ?>
                 <div class="text-center">
                     <h1>Thank You !</h1>
                     <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
-                    <a href="/SnapEase/_templates/_login.php"><button class="btn btn-outline-success">Login Here</button></a>
+                    <a href="/SnapEase/_pages/_login.php"><button class="btn btn-outline-success">Login Here</button></a>
                 </div>
             </div>
         </div>
