@@ -3,7 +3,7 @@
 
 class Database
 {
-    // $conn - which holds the connection status
+    // $conn - which holds the connection
     public static $conn = null;
 
     public static function getConnection()
