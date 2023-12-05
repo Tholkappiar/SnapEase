@@ -6,15 +6,15 @@ class User
     private $conn;
     private $id;
 
-    public static function signup($first_name, $last_name, $email_addr, $pass)
+    public static function signup($username,$first_name, $last_name, $email_addr, $pass)
     {
         $conn = Database::getConnection();
         $options = [
             'cost' => 10,
         ];
         $pass = password_hash($pass, PASSWORD_BCRYPT, $options);
-        $sql = "INSERT INTO _auth (first_name, last_name, email, password)
-        VALUES ('$first_name', '$last_name', '$email_addr', '$pass')";
+        $sql = "INSERT INTO `_auth` (`username`,`first_name`, `last_name`, `email`, `password`)
+        VALUES ('$username', '$first_name', '$last_name', '$email_addr', '$pass')";
 
         if (mysqli_query($conn, $sql)) {
             // echo "New record created successfully";
@@ -22,7 +22,7 @@ class User
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
 
-        mysqli_close($conn);
+        // mysqli_close($conn);
     }
 
     public static function login($email, $password)
@@ -37,8 +37,7 @@ class User
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row["password"])) {
-                session_start();
-                return $row['password'];
+                return $row['id'];
             } else {
                 return false;
             }
@@ -51,6 +50,9 @@ class User
     {
         if(!$this->conn){
             $this->conn = Database::getConnection();
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
         }
         $query = "SELECT `id` FROM `_auth` WHERE `username`= '$username' LIMIT 1;";
         $result = $this->conn->query($query);
