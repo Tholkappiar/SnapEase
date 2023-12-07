@@ -6,16 +6,15 @@ if (isset($_POST["first-name"]) && isset($_POST["last-name"]) && isset($_POST["e
     $lastName = $_POST["last-name"];
     $emailAddr = $_POST["email-addr"];
     $password = $_POST["password"];
-    User::signup($firstName, $lastName, $emailAddr, $password);
+    $userName = $_POST["user-name"];
+    $error = User::signup($userName,$firstName, $lastName, $emailAddr, $password);
     $is_signup = true;
 }
 
-
 ?>
-
-
-<?
-if ($is_signup) { ?>
+    <?
+    if ($is_signup and !$error) { 
+    ?>
 
     <div class="vh-100 d-flex justify-content-center align-items-center">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -133,6 +132,11 @@ if ($is_signup) { ?>
                                                 <label class="form-label" for="form3Example2">Last name</label>
                                             </div>
                                         </div>
+                                    </div>
+                                    
+                                    <div class="form-outline mb-4" data-mdb-input-init>
+                                        <input name="user-name" type="text" id="form3Example3" class="form-control" />
+                                        <label class="form-label" for="form3Example3">User name</label>
                                     </div>
 
                                     <!-- Email input -->

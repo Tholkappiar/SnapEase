@@ -2,20 +2,17 @@
 if (isset($_POST["login-email"]) && isset($_POST['login-password']) && (!empty($_POST['login-password'])) && (!empty($_POST['login-email']))) {
     $email = $_POST['login-email'];
     $password = $_POST['login-password'];
-    $user = User::login($email, $password);
-    print_r($user);
+   
+    $user = new Sessions();
+    $user->authenticate($email, $password);
+    // print_r($user);
 
     // get the session info
-
     if(isset($_SESSION['is_loggedin'])){
         $userdata = $_SESSION['is_loggedin'];
         $user = $_SESSION['session_user'];
-        print "<br> this is the second time <br>";
-        print("userdata : $userdata");
-        print("welcome back $user");
+        print_r("welcome back ");
     } else {
-        // $user = User::login($email, $password);
-
         if($user) {
             print("login sucess <br>");
             $_SESSION['is_loggedin'] = true;

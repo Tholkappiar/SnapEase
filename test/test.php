@@ -5,6 +5,7 @@
 include_once("../_includes/Sessions.class.php");
 
 $obj1 = new Sessions();
+
 print_r("auth : " . $obj1->authenticate('test@gmail.com','test'));
 
 print($_SESSION['token']);

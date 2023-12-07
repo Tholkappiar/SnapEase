@@ -16,13 +16,13 @@ class User
         $sql = "INSERT INTO `_auth` (`username`,`first_name`, `last_name`, `email`, `password`)
         VALUES ('$username', '$first_name', '$last_name', '$email_addr', '$pass')";
 
-        if (mysqli_query($conn, $sql)) {
-            // echo "New record created successfully";
+        if ($conn->query($sql)) {
+            $error = false;
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $error = $conn->error;
         }
 
-        // mysqli_close($conn);
+        return $error;
     }
 
     public static function login($email, $password)
@@ -104,7 +104,7 @@ class User
             $row = $result->fetch_assoc();
             return $row[$name];
         } else {
-            return $result->error;
+            throw new Exception("User::_get_data -> cannot get the data.");
         }
     }
 

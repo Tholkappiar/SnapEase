@@ -1,6 +1,7 @@
 <?php
     include_once("../_includes/User.class.php");
     include_once("../_includes/Database.class.php");
+    include_once("../_includes/Sessions.class.php");
 
     // session_start();
 function load_template($template_name)
