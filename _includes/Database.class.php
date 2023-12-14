@@ -15,10 +15,10 @@ class Database
          */
         if (Database::$conn == null) {
             // mysql connection
-            $servername = "mysql.selfmade.ninja:3306";
-            $username = "SnapEase_Thols";
-            $password = "thols@123";
-            $dbname = "SnapEase_Thols_SnapEase";
+            $servername = get_config("servername");
+            $username = get_config("username");
+            $password = get_config("password");
+            $dbname = get_config("dbname");
 
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);
