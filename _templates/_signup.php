@@ -30,9 +30,9 @@ if (isset($_POST["first-name"]) && isset($_POST["last-name"]) && isset($_POST["e
                 <div class="text-center">
                     <h1>Thank You !</h1>
                     <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
-                    <a href="/SnapEase/_pages/_login.php"><button class="btn btn-outline-success">Login Here</button></a>
+                    <a href="/_pages/_login.php"><button class="btn btn-outline-success">Login Here</button></a>
                 </div>
-            </div>
+            </div>  
         </div>
     <?
 } else {
