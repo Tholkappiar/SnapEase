@@ -1,6 +1,6 @@
 
 <?
-include("../_libs/load.php");
+include_once ("../_libs/load.php");
 ?>
 
 <?

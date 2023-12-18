@@ -88,7 +88,7 @@ class Sessions
             return true;
         } else {
             // login and store the details in session 
-            include ('../_pages/_login.php');
+            include_once ('../_pages/_login.php');
         }
     }
 

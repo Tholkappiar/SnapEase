@@ -22,11 +22,12 @@ stages:          # List of stages for jobs, and their order of execution
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
-    - cd /var/www/html/SnapEase/
-    - ls -a
-    - echo "Files in the Dir.."
-    #- rm -rf .git
-    - echo ".git Removed..."
+    - rm -rf /var/www/html/snapease
+    - echo "Removed project from Server."
+    - cp /var/labsstorage/home/Tholkappiar2003/builds/PquaVx9Q/0/Tholkappiar/snapease /var/www/html/snapease
+    - echo "copied files to the server."
+    - rm -rf /var/www/html/snapease/.git
+    - echo "Removed .git"
     - echo "Deploying application..."
     - echo "Application successfully deployed."
   tags:
