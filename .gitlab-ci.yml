@@ -25,11 +25,11 @@ deploy-job:      # This job runs in the deploy stage.
     - cd /var/www/html/SnapEase/
     - ls -a
     - echo "Files in the Dir.."
-    - rm -rf .git
+    #- rm -rf .git
     - echo ".git Removed..."
     - echo "Deploying application..."
     - echo "Application successfully deployed."
   tags:
     - prod
   only:
-    - master  
+    - main  
