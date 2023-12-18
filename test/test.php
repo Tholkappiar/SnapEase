@@ -17,6 +17,7 @@ $diff = time() - $db_time;
 //diff gives -> 526675 , and 24 hours seconds -> 86400
 print($diff ." " . 24*60*60);
 
+print("from the github dev branch");
 // print_r($obj1->authorize());
 
 // print_r($_SERVER);
