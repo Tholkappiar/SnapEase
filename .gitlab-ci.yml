@@ -24,7 +24,7 @@ deploy-job:      # This job runs in the deploy stage.
   script:
     - rm -rf /var/www/html/snapease
     - echo "Removed project from Server."
-    - cp /var/labsstorage/home/Tholkappiar2003/builds/PquaVx9Q/0/Tholkappiar/snapease /var/www/html/snapease
+    - cp -r /var/labsstorage/home/Tholkappiar2003/builds/PquaVx9Q/0/Tholkappiar/snapease /var/www/html/
     - echo "copied files to the server."
     - rm -rf /var/www/html/snapease/.git
     - echo "Removed .git"
