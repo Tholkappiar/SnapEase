@@ -29,9 +29,9 @@ class Sessions
     
         if ($user) {
             $this->uid = $user;
-            $ip = $_SERVER["REMOTE_ADDR"];
-            $user_agent = $_SERVER["HTTP_USER_AGENT"];
-            $login_time = date("Y-m-d H:i:s", substr($_SERVER['REQUEST_TIME'], 0, 10));
+            $ip = $this->getIP();
+            $user_agent = $this->getUserAgent();
+            $login_time = date("Y-m-d H:i:s", substr($this->getLoginTime(), 0, 10));
     
             // Creating the token using ip and user agent
             $token = md5($ip.$user_agent.$login_time);
@@ -41,21 +41,14 @@ class Sessions
             $check_result = $this->conn->query($check_sql_uid);
     
             if ($check_result->num_rows > 0) {
-                $row = $check_result->fetch_assoc();
-                $last_login_time = strtotime($row['login_time']);
-    
-                // Check if 24 hours have passed since the last login
-                if (time() - $last_login_time >= 24 * 60 * 60) {
-                    // Update the existing record
-                    $update_sql = "UPDATE `_session` SET `token`='$token', `login_time`='$login_time', `ip`='$ip', `user_agent`='$user_agent' WHERE `uid`='$this->uid';";
-                    if ($this->conn->query($update_sql)) {
-                        $_SESSION['token'] = $token;
-                        return true;
-                    } else {
-                        throw new Exception("Sessions.class.php :: Update Error " . mysqli_error($this->conn));
-                    }
-                } else if ($this->authorize()){
-                    print_r('Already logged in within 24 hours!');
+
+                // Update the existing record
+                $update_sql = "UPDATE `_session` SET `token`='$token', `login_time`='$login_time', `ip`='$ip', `user_agent`='$user_agent' WHERE `uid`='$this->uid';";
+                if ($this->conn->query($update_sql)) {
+                    $_SESSION['token'] = $token;
+                    return true;
+                } else {
+                    throw new Exception("Sessions.class.php :: Update Error " . mysqli_error($this->conn));
                 }
             } else {
                 // Inserting a new record into the table
@@ -92,29 +85,33 @@ class Sessions
         }
     }
 
-    public function getUser()
+    /**
+     * Returns the IP address of the user.
+     * @return string
+     */
+    public function getIP()
     {
-        return new User("");
+        return $_SERVER["REMOTE_ADDR"];
     }
 
     /**
-     * Check if the validity of the session is within one hour, else it inactive.
-     *
-     * @return boolean
+     * Returns the Browser User-agent of the user.
+     * @return string
      */
-    public function isValid()
-    {
-    }
-
-    public function getIP()
-    {
-    }
-
     public function getUserAgent()
     {
+        return $_SERVER["HTTP_USER_AGENT"];
     }
 
     public function deactivate()
     {
+    }
+
+    /**
+     * Returns the Login time of the user.
+     * @return string
+     */
+    public function getLoginTime(){
+        return $_SERVER['REQUEST_TIME'];
     }
 }
