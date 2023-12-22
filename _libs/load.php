@@ -33,3 +33,16 @@ function validate_credentials($username, $password)
 {
     return ($username == "admin") ? "login successful <br>" : "failed <br>";
 }
+?>
+
+<script>
+  // Initialize the agent once at web application startup.
+  // Alternatively initialize as early on the page as possible.
+  const fpPromise = import('https://fpjscdn.net/v3/BaXd1iRTR8DXxRUTjGHh')
+    .then(FingerprintJS => FingerprintJS.load())
+
+  // Analyze the visitor when necessary.
+  fpPromise
+    .then(fp => fp.get())
+    .then(result => console.log(result.requestId, result.visitorId))
+</script>
