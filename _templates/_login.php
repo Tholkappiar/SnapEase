@@ -1,11 +1,14 @@
 <?php
-if (isset($_POST["login-email"]) && isset($_POST['login-password']) && (!empty($_POST['login-password'])) && (!empty($_POST['login-email']))) {
-    $email = $_POST['login-email'];
-    $password = $_POST['login-password'];
-   
-    $user = new Sessions();
-    $user->authenticate($email, $password);
-    // print_r($user);
+if (isset($_POST["login-email"]) && isset($_POST['login-password']) && (!empty($_POST['login-password'])) && (!empty($_POST['login-email'])) 
+    && isset($_POST['login-fingerprint']) && (!empty($_POST['login-fingerprint']))) 
+    {
+        $email = $_POST['login-email'];
+        $password = $_POST['login-password'];
+        $fingerprint = $_POST['login-fingerprint'];
+    
+        $user = new Sessions();
+        $user->authenticate($email, $password, $fingerprint);
+        // print_r($user);
 
     // get the session info
     if(isset($_SESSION['is_loggedin'])){
@@ -64,7 +67,7 @@ if (isset($_POST["login-email"]) && isset($_POST['login-password']) && (!empty($
                                             <label for="exampleDropdownFormPassword2" class="form-label">Password</label>
                                             <input name="login-password" type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
                                         </div>
-
+                                        <input name="login-fingerprint" type="hidden" class="form-control" id="fingerprint">
                                         <div class="pt-1 mb-4">
                                             <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                         </div>

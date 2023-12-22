@@ -20,7 +20,7 @@ class Sessions
     }
 
     // To login and store the session details 
-    public function authenticate($email, $password){
+    public function authenticate($email, $password, $fingerprint){
         if (!$this->conn) {
             $this->conn = Database::getConnection();
         }
@@ -34,10 +34,10 @@ class Sessions
             $login_time = date("Y-m-d H:i:s", substr($this->getLoginTime(), 0, 10));
     
             // Creating the token using ip and user agent
-            $token = md5($ip.$user_agent.$login_time);
+            $token = $fingerprint;
             
             // Check if the session is already in the session table
-            $check_sql_uid = "SELECT `login_time` FROM `_session` WHERE `uid`='$this->uid';";
+            $check_sql_uid = "SELECT `token` FROM `_session` WHERE `uid`='$this->uid';";
             $check_result = $this->conn->query($check_sql_uid);
     
             if ($check_result->num_rows > 0 and $this->isActive()) {
@@ -51,9 +51,7 @@ class Sessions
                 } else {
                     throw new Exception("Sessions.class.php :: Update Error " . mysqli_error($this->conn));
                 }
-            } elseif (!$this->isActive()) {
-                print_r("The Requested Account is Deactivated ! Please Contact Support.");
-            } else {
+            }  else {
                 // Inserting a new record into the table
                 $session_sql = "INSERT INTO `_session` (`uid`, `token`, `login_time`, `ip`, `user_agent`)
                                 VALUES ('$this->uid', '$token', '$login_time', '$ip', '$user_agent');";
@@ -64,6 +62,9 @@ class Sessions
                 } else {
                     throw new Exception("Sessions.class.php :: Insertion Error " . mysqli_error($this->conn));
                 }
+            }
+            if (!$this->isActive()) {
+                print_r("The Requested Account is Deactivated ! Please Contact Support.");
             }
         }
         return false;
