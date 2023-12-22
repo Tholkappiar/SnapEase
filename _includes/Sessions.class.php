@@ -40,16 +40,19 @@ class Sessions
             $check_sql_uid = "SELECT `login_time` FROM `_session` WHERE `uid`='$this->uid';";
             $check_result = $this->conn->query($check_sql_uid);
     
-            if ($check_result->num_rows > 0) {
+            if ($check_result->num_rows > 0 and $this->isActive()) {
 
                 // Update the existing record
                 $update_sql = "UPDATE `_session` SET `token`='$token', `login_time`='$login_time', `ip`='$ip', `user_agent`='$user_agent' WHERE `uid`='$this->uid';";
                 if ($this->conn->query($update_sql)) {
                     $_SESSION['token'] = $token;
+                    // $this->deactivate();
                     return true;
                 } else {
                     throw new Exception("Sessions.class.php :: Update Error " . mysqli_error($this->conn));
                 }
+            } elseif (!$this->isActive()) {
+                print_r("The Requested Account is Deactivated ! Please Contact Support.");
             } else {
                 // Inserting a new record into the table
                 $session_sql = "INSERT INTO `_session` (`uid`, `token`, `login_time`, `ip`, `user_agent`)
@@ -103,8 +106,13 @@ class Sessions
         return $_SERVER["HTTP_USER_AGENT"];
     }
 
+    // To Deactivate the Account. Needs the uid.
     public function deactivate()
     {
+        $deactivate_sql = "UPDATE `_session` SET `active`='0' WHERE `uid`='$this->uid';";
+        if ($this->conn->query($deactivate_sql)) {
+            print("The Account is Deactivated !");
+        }
     }
 
     /**
@@ -114,4 +122,15 @@ class Sessions
     public function getLoginTime(){
         return $_SERVER['REQUEST_TIME'];
     }
+
+    /**
+     * Returns the boolean based on the Account Active Status.
+     * @return boolean
+     */
+    public function isActive(){
+        $is_active_sql = "SELECT `active` FROM `_session` WHERE `uid`='$this->uid';";
+        $active_result  = $this->conn->query($is_active_sql)->fetch_assoc();
+        return $active_result['active']==1?true:false;
+    }
+
 }
