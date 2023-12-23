@@ -22,7 +22,7 @@ stages:          # List of stages for jobs, and their order of execution
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
-    - rm -rf /var/www/html/snapease
+    - sudo rm -rf /var/www/html/snapease/*
     - echo "Removed project from Server."
     - cp -r $(pwd) /var/www/html/
     - echo "copied files to the server."
