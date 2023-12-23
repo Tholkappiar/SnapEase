@@ -24,10 +24,10 @@ deploy-job:      # This job runs in the deploy stage.
   script:
     - sudo rm -rf /var/www/html/snapease
     - echo "Removed project from Server."
-    - sudo cp -r /var/labsstorage/home/gitlab-runner/builds/a2bofE5J/0/Tholkappiar/snapease /var/www/html/
+    - sudo cp -r $(pwd) /var/www/html/
     - echo "copied files to the server."
-    - sudo rm -rf /var/www/html/snapease/.git
-    - echo "Removed .git"
+    # - sudo rm -rf /var/www/html/snapease/.git
+    # - echo "Removed .git"
     - echo "Deploying application..."
     - echo "Application successfully deployed."
   tags:

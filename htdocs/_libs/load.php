@@ -2,13 +2,12 @@
 include_once("../_includes/User.class.php");
 include_once("../_includes/Database.class.php");
 include_once("../_includes/Sessions.class.php");
+include_once("../_includes/WEBAPI.class.php");
 
 session_start();
 
-global $__site_config;
-$__site_config_path = dirname(is_link($_SERVER['DOCUMENT_ROOT']) ? readlink($_SERVER['DOCUMENT_ROOT']) : $_SERVER['DOCUMENT_ROOT']) . '/db.json';
-$__site_config = file_get_contents($__site_config_path);
 
+$webapi = new WEBAPI();
 
 // To get the DB configs
 function get_config($key, $default = null)
