@@ -1,8 +1,8 @@
 <?php
-include_once("../_includes/User.class.php");
-include_once("../_includes/Database.class.php");
-include_once("../_includes/Sessions.class.php");
-include_once("../_includes/WEBAPI.class.php");
+include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/User.class.php");
+include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/Database.class.php");
+include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/Sessions.class.php");
+include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/WEBAPI.class.php");
 
 session_start();
 

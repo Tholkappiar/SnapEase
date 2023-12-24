@@ -1,6 +1,6 @@
 
 <?
-include_once ("../_libs/load.php");
+include_once (__DIR__ . "/../_libs/load.php");
 ?>
 
 <?
