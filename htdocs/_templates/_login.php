@@ -1,33 +1,23 @@
 <?php
-if (isset($_POST["login-email"]) && isset($_POST['login-password']) && (!empty($_POST['login-password'])) && (!empty($_POST['login-email'])) 
-    && isset($_POST['login-fingerprint']) && (!empty($_POST['login-fingerprint']))) 
-    {
-        $email = $_POST['login-email'];
-        $password = $_POST['login-password'];
-        $fingerprint = $_POST['login-fingerprint'];
+$login = false;
+
+if (
+    isset($_POST["login-email"]) && isset($_POST['login-password']) && (!empty($_POST['login-password'])) && (!empty($_POST['login-email']))
+    && isset($_POST['login-fingerprint']) && (!empty($_POST['login-fingerprint']))
+) {
+    $email = $_POST['login-email'];
+    $password = $_POST['login-password'];
+    $fingerprint = $_POST['login-fingerprint'];
+
+    $user = new UserSessions();
+    $result = $user->authenticate($email, $password, $fingerprint);
     
-        $user = new Sessions();
-        $user->authenticate($email, $password, $fingerprint);
-        // print_r($user);
-
-    // get the session info
-    if(isset($_SESSION['is_loggedin'])){
-        $userdata = $_SESSION['is_loggedin'];
-        $user = $_SESSION['session_user'];
-        print_r("welcome back ");
-    } else {
-        if($user) {
-            print("login sucess <br>");
-            $_SESSION['is_loggedin'] = true;
-            $_SESSION['session_user'] = $user;
-        } else {
-            print("login failed <br>");
-        }
-        
-
+    if($result) {
+        $login = true;
     }
+}
+if ($login) {
 ?>
-    
     <main class="container">
         <div class="bg-light p-5 rounded mt-3">
             <h1>Login Success</h1>

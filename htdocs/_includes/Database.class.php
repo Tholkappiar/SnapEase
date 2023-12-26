@@ -14,7 +14,7 @@ class Database
          *   mysql server return the previous connection !
          */
         if (Database::$conn == null) {
-            // mysql connection
+            // mysql connectiontion: Connection refused in /var/www/html/snapease/htdocs/_includes/Database.class.php:24\nStack trace:\n#0 /var/www/html/snapease/htdocs/_includes/Database.class.php(24): mysqli->__construct()\n#1 /var/www/html/snapease/htdocs/_includes/User.class.php(11): Database::getConnection()\n#2 /var/www/html/snapease/htdocs/_templates/_signup.php(10): User::signup()\n#3 /var/www/html/snapease/htdocs/_libs/load.php(28): include('...')\n#4 /var/www/html/snapease/htdocs/_pages/_signup.php(7): load_template()\n#5 {main}\n  thrown in /var/www/html/snapease/htdocs/_includes/Database.class.php on line 24, referer: http://localhost/_pages/_signup.php
             $servername = get_config("servername");
             $username = get_config("username");
             $password = get_config("password");
