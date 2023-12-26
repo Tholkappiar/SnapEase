@@ -1,6 +1,6 @@
 {
 
-    "servername" : "127.0.0.1:3307",
+    "servername" : "mysql.selfmade.ninja",
     "username" : "SnapEase_Thols",
     "password" : "thols@123",
     "dbname" : "SnapEase_Thols_SnapEase"

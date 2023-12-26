@@ -30,7 +30,7 @@ if (isset($_POST["first-name"]) && isset($_POST["last-name"]) && isset($_POST["e
                 <div class="text-center">
                     <h1>Thank You !</h1>
                     <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
-                    <a href="/_pages/_login.php"><button class="btn btn-outline-success">Login Here</button></a>
+                    <a href="/login.php"><button class="btn btn-outline-success">Login Here</button></a>
                 </div>
             </div>  
         </div>
@@ -117,7 +117,7 @@ if (isset($_POST["first-name"]) && isset($_POST["last-name"]) && isset($_POST["e
 
                         <div class="card bg-glass">
                             <div class="card-body px-4 py-5 px-md-5">
-                                <form action="_signup.php" method="post">
+                                <form action="signup.php" method="post">
                                     <!-- 2 column grid layout with text inputs for the first and last names -->
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
