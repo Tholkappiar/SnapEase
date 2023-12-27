@@ -25,6 +25,17 @@ print_r($_SERVER);
 // $user = User::login('test@gmail.com','test');    
 //     print_r($user);
 
+
+/**
+ * configs  :
+ * 
+ * "servername" : "127.0.0.1:3307"
+ * "servername" : "mysql.selfmade.ninja"
+ * 
+ * Adminer : adminer.selfmade.ninja:8080
+ * mysql : mysql.selfmade.ninja:3306
+ * 
+ */
    
 ?>
 </pre>

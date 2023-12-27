@@ -34,18 +34,20 @@ class UserSessions
             $login_time = date("Y-m-d H:i:s", substr($this->getLoginTime(), 0, 10));
     
             // Creating the token using FingerPrint js.
-            $token = $fingerprint;
-            
+            $token = md5($login_time . $email . $password);
+            Sessions::set('token', $token);
+            Sessions::set('uid', $this->uid);
+
             if ( $this->isSessionExists() and $this->isActive()) {
-                if ($this->updateSession($token,$login_time,$ip,$user_agent)) {
-                    Sessions::set('token', $token);
+                if ($this->updateSession($token,$login_time,$ip,$user_agent, $fingerprint)) {
+                    
+
                     return true;
                 } else {
                     throw new Exception("UserSessions.class.php :: Update Error " . mysqli_error($this->conn));
                 }
             }  else {
-                if ($this->insertSession($token, $login_time, $ip, $user_agent)) {
-                    Sessions::set('token', $token);
+                if ($this->insertSession($token, $login_time, $ip, $user_agent, $fingerprint)) {
                     return true;
                 } else {
                     throw new Exception("UserSessions.class.php :: Insertion Error " . mysqli_error($this->conn));
@@ -119,9 +121,9 @@ class UserSessions
     }
 
      // Update the existing record
-     public function updateSession($token, $login_time, $ip, $user_agent){
+     public function updateSession($token, $login_time, $ip, $user_agent, $fingerprint){
         $update_sql = "UPDATE `_session` SET `token`='$token', `login_time`='$login_time', 
-                      `ip`='$ip', `user_agent`='$user_agent' WHERE `uid`='$this->uid';";
+                      `ip`='$ip', `user_agent`='$user_agent', `fingerprint`='$fingerprint' WHERE `uid`='$this->uid';";
 
         if($this->conn->query($update_sql)){
             return true;
@@ -131,9 +133,9 @@ class UserSessions
     }
 
     // Inserting a new record into the table
-    public function insertSession($token, $login_time, $ip, $user_agent){
-        $session_sql = "INSERT INTO `_session` (`uid`, `token`, `login_time`, `ip`, `user_agent`)
-                        VALUES ('$this->uid', '$token', '$login_time', '$ip', '$user_agent');";
+    public function insertSession($token, $login_time, $ip, $user_agent, $fingerprint){
+        $session_sql = "INSERT INTO `_session` (`uid`, `token`, `login_time`, `ip`, `user_agent`, `fingerprint`)
+                        VALUES ('$this->uid', '$token', '$login_time', '$ip', '$user_agent', '$fingerprint');";
         if ($this->conn->query($session_sql)) {
             return true;
         } else {
@@ -143,12 +145,14 @@ class UserSessions
 
     // To get the token for the user.
     public function getToken(){
-        $auth_sql = "SELECT `token` FROM `_session` WHERE `uid`='$this->uid';";
+        $uid = Sessions::get('uid');
+        $auth_sql = "SELECT `token` FROM `_session` WHERE `uid`='$uid';";
         $result = $this->conn->query($auth_sql)->fetch_assoc()["token"];
         if($result) {
             return $result;
         } else {
-            throw new Exception("UserSessions.class.php :: in getToken " . mysqli_error($this->conn));
+            // throw new Exception("UserSessions.class.php :: in getToken " . mysqli_error($this->conn));
+            return false;
         }
     }
 

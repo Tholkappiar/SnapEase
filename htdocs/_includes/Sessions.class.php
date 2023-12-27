@@ -63,6 +63,10 @@ class Sessions
     }
 
     public static function isAuthenticated(){
+        $user_sessions = new UserSessions();
+        if(Sessions::isset('uid')){
+            return Sessions::get('token') == $user_sessions->getToken();
+        }
         return false;
     }
 }
