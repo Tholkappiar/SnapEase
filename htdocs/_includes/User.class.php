@@ -1,10 +1,14 @@
 <?php
 
+include_once __DIR__ . ("/../_libs/Traits/SqlGetterSetter.trait.php");
+
 class User
 {
+
+    use SqlGetterSetter;
     // $conn -> holds the connection , $id -> holds the id of the user .
-    private $conn;
-    private $id;
+    public $conn;
+    public $id;
 
     public static function signup($username,$first_name, $last_name, $email_addr, $pass)
     {
@@ -46,6 +50,7 @@ class User
         }
     }
 
+    //TODO: change this from username to uid , to fetch all the info about the user.
     public function __construct($username)
     {
         if(!$this->conn){
@@ -54,6 +59,7 @@ class User
                 session_start();
             }
         }
+        $this->table = "_auth";
         $query = "SELECT `id` FROM `_auth` WHERE `username`= '$username' LIMIT 1;";
         $result = $this->conn->query($query);
         if ($result->num_rows == 1) {
@@ -63,55 +69,6 @@ class User
             throw new Exception("user doesn't found");
         }
     }
-
-    // Using __call magic function to reduce the boiler plate codes -> getters and setters
-    public function __call($name, $attributes){
-        print("this is _call \n");
-        // To get the property name without the get or set in the start
-        $property = preg_replace("/[^0-9a-zA-Z]/", "", substr($name, 3));
-        // To convert camelCase to Snake_Case and meke it lowerCase
-        $property = strtolower(preg_replace('/\B([A-Z])/', '_$1', $property));
-
-        if(substr($name, 0, 3) == "set"){
-            return $this->_set_data($property, $attributes[0]);    
-        } else if(substr($name, 0, 3) == "get"){
-            return $this->_get_data($property);
-        } else {
-            throw new Exception("User::__call function : $name");
-        }
-    }
-
-    public function _set_data($name, $value){
-        if(!$this->conn){
-            $conn = Database::getConnection();
-        };
-        print_r("name : $name value : $value");
-        $query = "UPDATE `_users` SET `$name`='$value' WHERE `id`=$this->id;";
-        if($this->conn->query($query)){
-            return true;
-        } else {
-            return $this->conn->error;
-        }
-    }
-
-    public function _get_data($name){
-        if(!$this->conn){
-            $conn = Database::getConnection();
-        }
-        $query = "SELECT $name FROM `_users` WHERE `id`='$this->id';";
-        $result = $this->conn->query($query);
-        if($result->num_rows){
-            $row = $result->fetch_assoc();
-            return $row[$name];
-        } else {
-            throw new Exception("User::_get_data -> cannot get the data.");
-        }
-    }
-
-
-
-
-
 
 
     // private function get_details_by_column($column)
