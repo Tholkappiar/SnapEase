@@ -35,9 +35,13 @@
           if(Sessions::isAuthenticated())
           {
         ?>
-        <li class="nav-item"><a href="#" class="nav-link">Logout</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Logout</a></li>
         <? 
-          }  
+          }  else { 
+            ?>
+            <li class="nav-item"><a href="/login.php" class="nav-link">Login</a></li>
+            <?
+          }
         ?>
       </ul>
     </header>

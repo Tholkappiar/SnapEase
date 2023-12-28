@@ -36,6 +36,9 @@ function validate_credentials($username, $password)
 ?>
 
 <script>
+
+    // TODO : Remove the api and generate the normal the fingerprint.
+
     // Initialize the agent once at web application startup.
     // Alternatively initialize as early on the page as possible.
     const fpPromise = import('https://fpjscdn.net/v3/BaXd1iRTR8DXxRUTjGHh')

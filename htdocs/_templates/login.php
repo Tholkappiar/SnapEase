@@ -1,5 +1,7 @@
 <?php
-$login = false;
+
+$login_page = false;
+$result = false;
 
 if (
     isset($_POST["login-email"]) && isset($_POST['login-password']) && (!empty($_POST['login-password'])) && (!empty($_POST['login-email']))
@@ -13,19 +15,30 @@ if (
     $result = $user->authenticate($email, $password, $fingerprint);
     
     if($result) {
-        $login = true;
+        $login_page = true;
     }
 }
-if ($login) {
+if ($result && $login_page) {
+    if(Sessions::isset('_redirect')) {
+        $redirect_url = Sessions::get('_redirect');
+    } else {
+        $redirect_url = '/';
+    }
 ?>
+    
     <main class="container">
         <div class="bg-light p-5 rounded mt-3">
             <h1>Login Success</h1>
-            <p class="lead">This example is a quick exercise to do basic login with html forms.</p>
+            <p class="lead">You will be Redirected in 2 Seconds ...</p>
         </div>
     </main>
+    <script>
+        setTimeout(function () {
+                var redirectUrl = "<?php echo $redirect_url; ?>";
+                window.location.href = redirectUrl;
+            }, 2000);
+    </script>
 <?
-
 } else {
 ?>
     <section class="vh-100" style="background-color: #9A616D;">

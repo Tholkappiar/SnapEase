@@ -40,8 +40,6 @@ class UserSessions
 
             if ( $this->isSessionExists() and $this->isActive()) {
                 if ($this->updateSession($token,$login_time,$ip,$user_agent, $fingerprint)) {
-                    
-
                     return true;
                 } else {
                     throw new Exception("UserSessions.class.php :: Update Error " . mysqli_error($this->conn));
@@ -69,6 +67,7 @@ class UserSessions
         }
 
         $token_hash = $this->getToken();
+        // TODO : Also check the fingerprint to avoid session hijacking.
         if(Sessions::get('token') == $token_hash) {
             return true;
         } else {
