@@ -1,9 +1,9 @@
 {
 
-    "servername" : "mysql.selfmade.ninja",
+    "servername" : "127.0.0.1:3307",
     "username" : "SnapEase_Thols",
     "password" : "thols@123",
     "dbname" : "SnapEase_Thols_SnapEase",
-    "upload_path" : "/home/($whoami)/snapease_post"
+    "upload_path" : "/home/thols/snapease_post/"
 
 }

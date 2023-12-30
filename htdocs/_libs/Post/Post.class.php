@@ -2,32 +2,38 @@
 
 include_once __DIR__ . "/../Traits/SqlGetterSetter.trait.php";
 
-class Post{
-   
+class Post
+{
+
     use SqlGetterSetter;
 
-    public static function post($post_caption){
+    public static function registerPost($post_caption, $image_tmp)
+    {
         $uid = Sessions::get('uid');
 
-        //TODO: Update this image moving part.
-        $image_name = md5($uid . time()) . "jpg";
-        $image_path = "home/$(whoami)/snapease_post";
+        if (is_file($image_tmp) and exif_imagetype($image_tmp) !== false) {
+            //TODO: Update this image moving part.
+            $image_name = md5($uid . time()) . image_type_to_extension(exif_imagetype($image_tmp));
+            $image_path = get_config('upload_path') . $image_name;
 
-        $sql_query = "INSERT INTO `_posts` (`uid`, `post_text`, `img_uri`, `uploaded_time`)
-        VALUES ('$uid', '$post_caption', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvEeEpQs9dF8tzPmK0UwrNpmW6vN8AHaqU-_VXRKe78w&s', now());
-        ";
+            if (move_uploaded_file($image_tmp, $image_path)) {
+                $image_uri = "/images/$image_name";
+                $insert_command = "INSERT INTO `_posts` (`uid`, `multi_img`, `post_text`, `image_uri`, 
+                `like`, `uploaded_time`) VALUES ('$uid', 0, '$post_caption', '$image_uri', '0', now());";
 
-        $db = Database::getConnection();
-        if($db->query($sql_query)){
-            return new Post($uid);
-        } else {
-            return false;
+                $db = Database::getConnection();
+                if ($db->query($insert_command)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
     }
 
-    public function __construct($uid){
-        $this->table = "_posts";
-        $this->id = $uid;
-    }
-
+    // public function __construct($uid)
+    // {
+    //     $this->table = "_posts";
+    //     $this->id = $uid;
+    // }
 }
