@@ -1,5 +1,5 @@
 <?php
-
+require __DIR__ . '/../vendor/autoload.php';
 include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/User.class.php");
 include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/Database.class.php");
 include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/UserSessions.class.php");

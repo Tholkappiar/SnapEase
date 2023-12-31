@@ -2,9 +2,12 @@
 
 include_once __DIR__ . "/../Traits/SqlGetterSetter.trait.php";
 
+// including carbon namespace.
+use Carbon\Carbon;
+
 class Post
 {
-
+    // SqlGetterSetter - Trait
     use SqlGetterSetter;
 
     public static function registerPost($post_caption, $image_tmp)

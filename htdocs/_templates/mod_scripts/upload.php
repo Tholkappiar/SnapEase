@@ -1,6 +1,6 @@
 <section class="py-5 text-center container">
 	<div class="row py-lg-5">
-		<form method="post" action="file-test.php" enctype="multipart/form-data" class="col-lg-6 col-md-8 mx-auto">
+		<form method="post" action="/" enctype="multipart/form-data" class="col-lg-6 col-md-8 mx-auto">
 			<h1 class="fw-light">What are you upto?</h1>
 			<p class="lead text-muted">Share a photo that talks about it.</p>
 			<p>
