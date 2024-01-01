@@ -1,8 +1,7 @@
 RewriteEngine On
 RewriteBase /
 
-RewriteRule ^/?login?$ login.php [L,QSA,NC]
-
+RewriteRule ^/?files/([^/]+)?$ files.php?name=$1 [L,QSA,NC]
 
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^([^/.]+)$ $1.php [L]

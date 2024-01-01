@@ -7,7 +7,9 @@ ob_end_clean();
 
 $upload_path = get_config('upload_path');
 $fname = $_GET['name'];
+// echo $fname;
 $image_path = $upload_path . $fname;
+// echo $image_path;
 
 //To prevent directory traversal vulnerablity
 $image_path = str_replace('..', '', $image_path);
@@ -18,4 +20,3 @@ if (is_file($image_path)) {
     header("Content-Length:".filesize($image_path));
     echo file_get_contents($image_path);
 }
-
