@@ -35,7 +35,9 @@ class Sessions
 
     public static function get($key)
     {
-        return $_SESSION[$key];
+        if(isset($_SESSION[$key])){
+            return $_SESSION[$key];
+        }
     }
 
     public static function status()
@@ -75,5 +77,10 @@ class Sessions
             Sessions::set('_redirect',$_SERVER['REQUEST_URI']);
             header("Location: /login.php");
         }
+    }
+
+    // Check the user is the owner of the post.
+    public static function isOwner($uid){
+        return $uid == Sessions::get('uid');
     }
 }

@@ -1,8 +1,7 @@
 <?
-if (isset($_POST['post_caption']) and isset($_FILES['post_image'])) {
-	
+if (isset($_POST['post_caption']) and isset($_FILES['post_image']) ) {
     $image_tmp = $_FILES['post_image']['tmp_name'];
-    $text = $_POST['post_text'];
+    $text = $_POST['post_caption'];
     Post::registerPost($text, $image_tmp);
 }
 ?>

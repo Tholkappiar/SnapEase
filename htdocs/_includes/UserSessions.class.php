@@ -21,7 +21,7 @@ class UserSessions
             }
         }
         // stores the all user data in the 'data' - variable
-        // $getData = "SELECT * FROM `_session` WHERE `uid`='$token';";
+        // $getData = "SELECT * FROM `_session` WHERE `token`='$token';";
         // $allResult = $this->conn->query($getData); 
         // if($allResult){
         //     $this->data = $allResult->fetch_assoc(); 
