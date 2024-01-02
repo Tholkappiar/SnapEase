@@ -35,7 +35,7 @@
           if(Sessions::isAuthenticated())
           {
         ?>
-            <li class="nav-item"><a href="#" class="nav-link">Logout</a></li>
+            <li class="nav-item"><a href="/?logout" class="nav-link">Logout</a></li>
         <? 
           }  else { 
             ?>

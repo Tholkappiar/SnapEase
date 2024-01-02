@@ -7,6 +7,9 @@ class UserSessions
     private $uid = null;
     // $conn -> holds the database connection
     private $conn = null;
+    
+    // To hold all user data.
+    public $data = null;
 
     // check for the database connection and connect to the database 
     public function __construct()
@@ -17,6 +20,12 @@ class UserSessions
                 session_start();
             }
         }
+        // stores the all user data in the 'data' - variable
+        // $getData = "SELECT * FROM `_session` WHERE `uid`='$token';";
+        // $allResult = $this->conn->query($getData); 
+        // if($allResult){
+        //     $this->data = $allResult->fetch_assoc(); 
+        // }
     }
 
     // To login and store the session details 
@@ -162,5 +171,15 @@ class UserSessions
         if ($this->conn->query($deactivate_sql)) {
             print("The Account is Deactivated !");
         }
-    }  
+    }
+
+    public function removeSession(){
+        $uid = Sessions::get('uid');
+        $removeSessionQuery = "DELETE FROM `_session` WHERE `uid`='$uid';";
+        if($this->conn->query($removeSessionQuery)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
