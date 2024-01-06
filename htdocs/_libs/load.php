@@ -6,6 +6,8 @@ include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/UserSessions.class.php");
 include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/Sessions.class.php");
 include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/WEBAPI.class.php");
 include_once($_SERVER['DOCUMENT_ROOT']. "/_libs/Post/Post.class.php");
+include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/REST.class.php");
+include_once($_SERVER['DOCUMENT_ROOT']. "/_includes/API.class.php");
 
 session_start();
 

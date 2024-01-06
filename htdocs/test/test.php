@@ -6,15 +6,17 @@ include_once( __DIR__ . "/../_libs/load.php");
 
 // print_r($_SERVER);
 
-$post = new Post(1);
-print($post->getPostText());
+// $post = new Post(1);
+// print($post->getPostText());
 
 
 // $user = new User('');
 
 
 
+print_r($_SERVER);
 
+print_r($_REQUEST);
 
 
 
