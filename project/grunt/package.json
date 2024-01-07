@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "grunt": "^1.6.1"
+  },
+  "dependencies": {
+    "grunt-cli": "^1.4.3",
+    "grunt-contrib-concat": "^2.1.0",
+    "grunt-contrib-cssmin": "^5.0.0",
+    "grunt-contrib-obfuscator": "^8.0.0",
+    "grunt-contrib-uglify": "^5.2.2",
+    "grunt-contrib-watch": "^1.1.0"
+  }
+}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../css/test.css"],"names":[],"mappings":";AAAA,CAAC,IAAI,CAAC;AACN,IAAI,UAAU,CAAC,KAAK,CAAC,CAAC,IAAI,CAAC;AAC3B,IAAI,KAAK,CAAC,GAAG,CAAC;AACd","file":"style.css","sourcesContent":[".test{\n    background-color: aqua;\n    color:red;\n}"]}
