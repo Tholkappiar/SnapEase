@@ -5,7 +5,7 @@ include '_libs/load.php';
 ob_end_clean();
 
 // diabling the cache limiter because of the sessions usage.
-session_cache_limiter('none');
+
 header('Cache-control: max-age='.(60*60*24*365));
 header('Expires: '.gmdate(DATE_RFC1123,time()+60*60*24*365));
 header_remove('Pragma');
