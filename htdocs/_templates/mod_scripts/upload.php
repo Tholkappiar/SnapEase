@@ -7,7 +7,7 @@ if (isset($_POST['post_caption']) and isset($_FILES['post_image']) ) {
 ?>
 
 <section class="py-5 text-center container">
-	<div class="row py-lg-5">
+	<!-- <div class="row py-lg-5"> -->
 		<form method="post" action="/" enctype="multipart/form-data" class="col-lg-6 col-md-8 mx-auto">
 			<h1 class="fw-light">What are you upto?</h1>
 			<p class="lead text-muted">Share a photo that talks about it.</p>
@@ -22,5 +22,5 @@ if (isset($_POST['post_caption']) and isset($_FILES['post_image']) ) {
 			<button type="submit" class="btn btn-success my-2">Upload</button>
 			</p>
 		</form>
-	</div>
+	<!-- </div> -->
 </section>

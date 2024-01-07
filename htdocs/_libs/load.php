@@ -46,7 +46,7 @@ function validate_credentials($username, $password)
 
     // Initialize the agent once at web application startup.
     // Alternatively initialize as early on the page as possible.
-    const fpPromise = import('https://fpjscdn.net/v3/BaXd1iRTR8DXxRUTjGHh')
+    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3')
         .then(FingerprintJS => FingerprintJS.load())
 
     // Analyze the visitor when necessary.
