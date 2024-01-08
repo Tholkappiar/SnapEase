@@ -61,4 +61,21 @@ trait SqlGetterSetter
             throw new Exception( __CLASS__ . "::_get_data -> cannot get the data.");
         }
     }
+
+    public function delete(){
+        if (!$this->conn) {
+            $this->conn = Database::getConnection();
+        }
+
+        try {
+            $query = "DELETE FROM `$this->table` WHERE `id`='$this->id';";
+            if ($this->conn->query($query)) {
+               return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            throw new Exception( __CLASS__ . ":: delete -> cannot delete data.");
+        }
+    }
 }

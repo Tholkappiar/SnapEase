@@ -1,16 +1,24 @@
 <?php
 
 // https://domain/api/posts/delete
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 ${basename(__FILE__, '.php')} = function () {
-    $result = [
-        "success" => false,
-        "message" => "Invalid request",
-        "id" => $_POST['id']
-    ];
-    $this->response($this->json($result), 200);
+    if ($this->isAuthenticated() and $this->paramsExists(['id'])) {
+        $p = new Post($this->_request['id']);
+        $this->response($this->json([
+            'message'=>$p->delete()
+        ]), 200);
+    } else {
+        $this->response($this->json([
+            'message'=>"bad request"
+        ]), 400);
+    }
+
+
+
+    // $this->response($this->json([
+    //             'message'=>"this is nice"
+    //         ]), 200);
+    // print $this->isAuthenticated();
 };
 // echo "this is thols";

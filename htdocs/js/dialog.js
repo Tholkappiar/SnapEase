@@ -170,7 +170,7 @@ class Dialog {
 				target: this,
                 modal: this.clone
 			}, function (event) {
-				console.log("Hidden bs modal event");
+				// console.log("Hidden bs modal event");
                 $('#'+event.data.target.cloneId).remove();
             });
 

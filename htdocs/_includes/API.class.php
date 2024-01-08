@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(E_ALL ^ E_DEPRECATED);
+// error_reporting(E_ALL ^ E_DEPRECATED);
 require_once 'REST.class.php';
 class API extends REST
 {
