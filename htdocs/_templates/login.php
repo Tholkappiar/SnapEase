@@ -13,19 +13,19 @@ if (
 
     $user = new UserSessions();
     $result = $user->authenticate($email, $password, $fingerprint);
-    
-    if($result) {
+
+    if ($result) {
         $login_page = true;
     }
 }
 if ($result && $login_page) {
-    if(Sessions::isset('_redirect')) {
+    if (Sessions::isset('_redirect')) {
         $redirect_url = Sessions::get('_redirect');
     } else {
         $redirect_url = '/';
     }
 ?>
-    
+
     <main class="container">
         <div class="bg-light p-5 rounded mt-3">
             <h1>Login Success</h1>
@@ -33,10 +33,10 @@ if ($result && $login_page) {
         </div>
     </main>
     <script>
-        setTimeout(function () {
-                var redirectUrl = "<?php echo $redirect_url; ?>";
-                window.location.href = redirectUrl;
-            }, 2000);
+        setTimeout(function() {
+            var redirectUrl = "<?php echo $redirect_url; ?>";
+            window.location.href = redirectUrl;
+        }, 2000);
     </script>
 <?
 } else {
@@ -99,23 +99,26 @@ if ($result && $login_page) {
 <?
 }
 ?>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
+    $(document).ready(function() {
+        // TODO : Remove the api and generate the normal the fingerprint.
 
-// TODO : Remove the api and generate the normal the fingerprint.
+        // Initialize the agent once at web application startup.
+        // Alternatively initialize as early on the page as possible.
+        var fPromise = import('https://openfpcdn.io/fingerprintjs/v3')
+            .then(FingerprintJS => FingerprintJS.load())
 
-// Initialize the agent once at web application startup.
-// Alternatively initialize as early on the page as possible.
-var fPromise = import('https://openfpcdn.io/fingerprintjs/v3')
-    .then(FingerprintJS => FingerprintJS.load())
+        // Analyze the visitor when necessary.
+        fPromise
+            .then(fp => fp.get())
+            .then(result => {
+                const visitorId = result.visitorId;
+                // console.log(visitorId);
+                // document.getElementById('#fingerprint').value = visitorId;
+                $("#fingerprint").val(visitorId);
+            })
 
-// Analyze the visitor when necessary.
-fPromise
-    .then(fp => fp.get())
-    .then(result => {
-        const visitorId = result.visitorId;
-        // console.log(visitorId);
-        document.getElementById('fingerprint').value = visitorId;
+        // console.log(result.requestId, "visitor : " + result.visitorId))
     })
-
-// console.log(result.requestId, "visitor : " + result.visitorId))
 </script>
