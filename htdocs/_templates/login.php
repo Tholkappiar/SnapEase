@@ -99,3 +99,23 @@ if ($result && $login_page) {
 <?
 }
 ?>
+<script>
+
+// TODO : Remove the api and generate the normal the fingerprint.
+
+// Initialize the agent once at web application startup.
+// Alternatively initialize as early on the page as possible.
+var fPromise = import('https://openfpcdn.io/fingerprintjs/v3')
+    .then(FingerprintJS => FingerprintJS.load())
+
+// Analyze the visitor when necessary.
+fPromise
+    .then(fp => fp.get())
+    .then(result => {
+        const visitorId = result.visitorId;
+        // console.log(visitorId);
+        document.getElementById('fingerprint').value = visitorId;
+    })
+
+// console.log(result.requestId, "visitor : " + result.visitorId))
+</script>

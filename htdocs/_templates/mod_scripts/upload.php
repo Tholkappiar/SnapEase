@@ -24,3 +24,8 @@ if (isset($_POST['post_caption']) and isset($_FILES['post_image']) ) {
 		</form>
 	<!-- </div> -->
 </section>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
