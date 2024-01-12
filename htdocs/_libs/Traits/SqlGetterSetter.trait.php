@@ -33,7 +33,7 @@ trait SqlGetterSetter
             $this->conn = Database::getConnection();
         }
         try {
-            $query = "UPDATE `$this->table` SET `$name`='$value' WHERE `id`=$this->id;";
+            $query = "UPDATE `$this->table` SET `$name`='$value' WHERE `id`='$this->id';";
             if ($this->conn->query($query)) {
                 return true;
             } else {
@@ -51,7 +51,7 @@ trait SqlGetterSetter
         }
 
         try {
-            $query = "SELECT $name FROM `$this->table` WHERE `id`='$this->id';";
+            $query = "SELECT `$name` FROM `$this->table` WHERE `id`='$this->id';";
             $result = $this->conn->query($query);
             if ($result->num_rows) {
                 $row = $result->fetch_assoc();
@@ -77,5 +77,9 @@ trait SqlGetterSetter
         } catch (Exception $e) {
             throw new Exception( __CLASS__ . ":: delete -> cannot delete data.");
         }
+    }
+
+    public function getId(){
+        return $this->id;
     }
 }
