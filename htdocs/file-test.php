@@ -8,20 +8,23 @@ include ("./_libs/load.php");
 // Post::registerPost($text, $image_tmp);
 
 
-$allPost = Post::getAllPost();
+// $allPost = Post::getAllPost();
 
-foreach($allPost as $post){
-    // print_r($post);
-    // print($_SERVER['DOCUMENT_ROOT']. "/_includes/API.class.php");
-    $p = new Post($post['id']);
-    // print($p->getPostText() . ", ");
-    $l = new Like_class($p);
-    // print_r($l);
-    // print($l->getId() . ", ");
+// foreach($allPost as $post){
+//     // print_r($post);
+//     // print($_SERVER['DOCUMENT_ROOT']. "/_includes/API.class.php");
+//     $p = new Post($post['id']);
+//     // print($p->getPostText() . ", ");
+//     $l = new Like_class($p);
+//     // print_r($l);
+//     // print($l->getId() . ", ");
 
-    $l->toggleLike();
+//     $l->toggleLike();
 
-}
+// }
+
+$user = new User(68);
+print($user->data['username']);
 
 
 ?>

@@ -9,6 +9,7 @@
 
       foreach ($posts as $post) {
         $p = new Post($post['id']);
+        $user = new User($post['uid']);
         $uploaded_time = Carbon::parse($p->getUploadedTime());
         $uploaded_time_str = $uploaded_time->diffForHumans();
       ?>
@@ -29,7 +30,7 @@
                   }
                   ?>
                 </div>
-                <small class="text-muted"><?= $uploaded_time_str ?></small>
+                <small class="text-muted"><?= $uploaded_time_str . " by " . $user->data['username']?></small>
               </div>
             </div>
           </div>

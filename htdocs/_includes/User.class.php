@@ -9,6 +9,7 @@ class User
     // $conn -> holds the connection , $id -> holds the id of the user .
     public $conn;
     public $id;
+    public $data;
 
     public static function signup($username,$first_name, $last_name, $email_addr, $pass)
     {
@@ -51,7 +52,7 @@ class User
     }
 
     //TODO: change this from username to uid , to fetch all the info about the user.
-    public function __construct($username)
+    public function __construct($uid)
     {
         if(!$this->conn){
             $this->conn = Database::getConnection();
@@ -60,10 +61,13 @@ class User
             }
         }
         $this->table = "_auth";
-        $query = "SELECT `id` FROM `_auth` WHERE `username`= '$username' LIMIT 1;";
-        $result = $this->conn->query($query);
-        if ($result->num_rows == 1) {
-            $this->id = $result->fetch_assoc()["id"];
+        $query = "SELECT * FROM `_auth` WHERE `id`= '$uid';";
+        $response = $this->conn->query($query);
+        if ($response->num_rows == 1) {
+            $result = $response->fetch_assoc();
+            $this->id = $result["id"];
+            $this->data = $result;
+            // print_r($this->data[]);
             // print_r($this->id);
         } else {
             throw new Exception("user doesn't found");
