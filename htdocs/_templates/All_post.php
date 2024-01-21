@@ -13,7 +13,7 @@
         $uploaded_time = Carbon::parse($p->getUploadedTime());
         $uploaded_time_str = $uploaded_time->diffForHumans();
       ?>
-        <div class="col-lg-4 mb-4" id="post-<?=$post['id']?>">
+        <div class="col-lg-3 mb-5" id="post-<?=$post['id']?>">
           <div class="card">
             <img class="bd-placeholder-img card-img-top" src="<?= $p->getImageUri() ?>">
             <div class="card-body">
@@ -38,3 +38,4 @@
       <?php
       }
       ?>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">

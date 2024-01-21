@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 
 <head>
   <script src="assets/js/color-modes.js"></script>
@@ -13,7 +13,7 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-  <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 
 
@@ -27,15 +27,13 @@
       </a>
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="/All_post.php" class="nav-link active" aria-current="page"><i class="fa-solid fa-magnifying-glass"></i></a></li>
         <? 
           if(Sessions::isAuthenticated())
           {
         ?>
             <li class="nav-item"><a href="/?logout" class="nav-link">Logout</a></li>
+            <li class="nav-item"><i class="fa-regular fa-user nav-link"></i></li>
         <? 
           }  else { 
             ?>
@@ -52,3 +50,4 @@
   </body>
 
 </html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
