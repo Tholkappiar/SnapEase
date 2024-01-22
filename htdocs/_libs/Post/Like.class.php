@@ -1,6 +1,6 @@
 <?php
 
-class Like_class{
+class like{
 
     use SqlGetterSetter;
 

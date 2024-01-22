@@ -20,7 +20,7 @@
               <p class="card-text"><?= $p->getPostText() ?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group" data-id="<?=$post['id']?>">
-                  <button type="button" class="btn btn-sm btn-outline-primary">Like</button>
+                  <button type="button" class="btn btn-sm btn-outline-primary btn-like">Like</button>
                   <button type="button" class="btn btn-sm btn-outline-success">Share</button>
                   <?
                   if (Sessions::isOwner($p->getUid())) {

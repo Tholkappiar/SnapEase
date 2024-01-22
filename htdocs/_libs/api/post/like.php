@@ -1,10 +1,16 @@
 <?php
 
-// https://domain/api/posts/delete
-${basename(__FILE__, '.php')} = function(){
-    $result = [
-        "success" => true,
-        "message" => "Liked the post"
-    ];
-    $this->response($this->json($result), 200);
+${basename(__FILE__, '.php')} = function () {
+    if ($this->isAuthenticated() and $this->paramsExists('id')) {
+        $p = new Post($this->_request['id']);
+        $l = new like($p);
+        $l->toggleLike();
+        $this->response($this->json([
+            'liked'=>$l->isLiked()
+        ]), 200);
+    } else {
+        $this->response($this->json([
+            'message'=>"bad request"
+        ]), 400);
+    }
 };

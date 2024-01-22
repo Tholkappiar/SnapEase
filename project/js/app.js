@@ -47,3 +47,23 @@ $('.btn-delete').on('click',function(){
     ]);
     d.show();
 })
+
+$(document).on('click', '.album .btn-like', function(){
+    post_id = $(this).parent().attr('data-id');
+    $this = $(this);
+    $(this).html() == "Like" ? $(this).html("Liked") : $(this).html("Like");
+    $(this).hasClass('btn-outline-primary') ? $(this).removeClass('btn-outline-primary').addClass('btn-primary') : $(this).removeClass('btn-primary').addClass('btn-outline-primary');
+    $.post('/api/posts/like', {
+        id: post_id
+    }, function(data, textSuccess, xhr){
+        if(textSuccess == "success"){
+            if(data.liked){
+                $($this).html("Liked");
+                $($this).removeClass('btn-outline-primary').addClass('btn-primary');
+            } else {
+                $($this).html("Like");
+                $($this).removeClass('btn-primary').addClass('btn-outline-primary');
+            }
+        }
+    });
+});
