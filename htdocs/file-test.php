@@ -1,7 +1,7 @@
 <pre>
 <?php
 
-include ("./_libs/load.php");
+// include ("./_libs/load.php");
 
 
 // print_r ($_FILES);
@@ -23,8 +23,24 @@ include ("./_libs/load.php");
 
 // }
 
-$user = new User(68);
-print($user->data['username']);
+include ("./_libs/load.php");
+
+
+class YourClass {
+    use SqlGetterSetter;
+
+    // Set the necessary properties
+    public $id; // Assuming you have an id property in your class
+    public $conn; // Assuming you have a connection property in your class
+    // Set your table name
+
+    // Constructor or other methods if needed
+}
+
+$a = new YourClass();
+$a->table = 'thols';
+$a->delete();
+
 
 
 ?>

@@ -48,6 +48,10 @@ class like{
             $this->setLike(1);
         }
     }
+    public function isLiked()
+    {
+        return boolval($this->getLike());
+    }
 
 
 }
