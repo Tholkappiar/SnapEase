@@ -24,10 +24,10 @@ class like{
         if($result->num_rows==1){
                 print_r($result->fetch_assoc());
         } else {
-            $query_insert = "INSERT INTO `$this->table` (`id`,`uid`,`post_id`,`like`,`time`) 
-                             VALUES('$this->id','$userid','$postid',0,now());";
+            $query_insert = "INSERT INTO `$this->table` (`id`,`uid`,`post_id`,`time`,`liker`) 
+                             VALUES('$this->id','$userid','$postid',now(),$userid);";
             
-            // print($query_insert);
+            print($query_insert);
             
             if($this->conn->query($query_insert)){
                 print('like inserted');
@@ -50,10 +50,12 @@ class like{
     }
     public function isLiked()
     {
-        return boolval($this->getLike());
+        return ($this->getLike()); // TODO: like column replaced with liker(id - who likes the post)
     }
 
-
+    // return the liker id from each post  
+    public function liker(){
+        // $query = "SELECT `liker` FROM `likes` WHERE '' ";
+    }
 }
 
-?>

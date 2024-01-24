@@ -9,6 +9,8 @@
 
       foreach ($posts as $post) {
         $p = new Post($post['id']);
+        $get_like = new Post($post['id']);
+        $get_like->table = 'likes';
         $user = new User($post['uid']);
         $uploaded_time = Carbon::parse($p->getUploadedTime());
         $uploaded_time_str = $uploaded_time->diffForHumans();
@@ -20,6 +22,11 @@
               <p class="card-text"><?= $p->getPostText() ?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group" data-id="<?=$post['id']?>">
+                  <?
+                  if($get_like->getLiker()){
+                    
+                  } 
+                  ?>
                   <button type="button" class="btn btn-sm btn-outline-primary btn-like">Like</button>
                   <button type="button" class="btn btn-sm btn-outline-success">Share</button>
                   <?

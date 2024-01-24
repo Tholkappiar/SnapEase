@@ -4,7 +4,7 @@ ${basename(__FILE__, '.php')} = function () {
     if ($this->isAuthenticated() and $this->paramsExists('id')) {
         $p = new Post($this->_request['id']);
         $l = new like($p);
-        $l->toggleLike();
+        $l->toggleLike(); // TODO: remove like column in the db and insert only when the user likes.
         $this->response($this->json([
             'liked'=>$l->isLiked()
         ]), 200);
