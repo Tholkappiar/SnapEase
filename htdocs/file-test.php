@@ -37,10 +37,13 @@ class YourClass {
     // Constructor or other methods if needed
 }
 
-$a = new YourClass();
-$a->table = 'thols';
-$a->delete();
+// $a = new YourClass();
+// $a->table = 'thols';
+// $a->delete();
 
+$l = new like();
+$result = $l->liker('31a6b5568bbb9c350c1b296d9086acf0');
+print($result);
 
 
 ?>

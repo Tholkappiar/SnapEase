@@ -8,34 +8,32 @@ class like{
     public $table;
     public $conn;
 
-    public function __construct(Post $post){
-        $userid = Sessions::get('uid');
-        $postid = $post->getId();
-        // print($postid);
-        $this->id = md5($userid . $postid);
+    public function __construct() {
         $this->conn = Database::getConnection();
         $this->table = 'likes';
+    }
 
+    public function initialize(Post $post) {
+        $userid = Sessions::get('uid');
+        $postid = $post->getId();
+        $this->id = md5($userid . $postid);
 
         $query = "SELECT * FROM `$this->table` WHERE `id`='$this->id';";
-        // print($query);
         $result = $this->conn->query($query);
-        // print_r($result);
-        if($result->num_rows==1){
-                print_r($result->fetch_assoc());
+
+        if($result->num_rows == 1) {
+            print_r($result->fetch_assoc());
         } else {
             $query_insert = "INSERT INTO `$this->table` (`id`,`uid`,`post_id`,`time`,`liker`) 
                              VALUES('$this->id','$userid','$postid',now(),$userid);";
-            
             print($query_insert);
             
-            if($this->conn->query($query_insert)){
+            if($this->conn->query($query_insert)) {
                 print('like inserted');
             } else {
                 throw new Exception("Like :: insertion Error.");
             }
         }
-
     }
 
     public function toggleLike()
@@ -54,8 +52,21 @@ class like{
     }
 
     // return the liker id from each post  
-    public function liker(){
-        // $query = "SELECT `liker` FROM `likes` WHERE '' ";
+    public function liker($id){
+        $query = "SELECT `liker` FROM `likes` WHERE `id`='$id';";
+        // print($query);
+        $result = $this->conn->query($query);
+    
+        if ($result && $result->num_rows > 0) {
+            // Fetch the result as an associative array
+            $row = $result->fetch_assoc();
+            // Return the value of 'liker' if it exists, otherwise return false
+            return isset($row['liker']) ? $row['liker'] : false;
+        } else {
+            // Handle case where query fails or no rows returned
+            return false;
+        }
     }
+    
 }
 
