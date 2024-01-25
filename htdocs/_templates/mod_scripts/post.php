@@ -14,24 +14,23 @@
         $uploaded_time_str = $uploaded_time->diffForHumans();
 
 
-        $userid = $user->id;
+        $userid = Sessions::get('uid');
         $postid = $post['id'];
-        $id = md5($userid . $postid);
+        $id = md5($userid . $postid);      
         $like = new like();
         $like_cond = $like->liker($id);
-        // print("this is like : " . $like);
+        // print("this is like : " . $like_cond);
 
       ?>
         <div class="col-lg-4 mb-4" id="post-<?= $post['id'] ?>">
           <div class="card">
             <img class="bd-placeholder-img card-img-top" src="<?= $p->getImageUri() ?>">
             <div class="card-body">
-             <!-- $p->getPostText() -->
               <p class="card-text"><?=$p->getPostText()?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group" data-id="<?= $post['id'] ?>">
                   <?
-                  if ($like_cond == Sessions::get('uid')) {
+                  if($like_cond) {
                   ?>
                     <button type="button" class="btn btn-sm btn-primary btn-like">Liked</button>
                   <?php

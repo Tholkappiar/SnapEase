@@ -1,4 +1,4 @@
-/*Processed by Thols Labs on 23/1/2024 @ 13:2:26 https://www.github.com/tholkappiar */
+/*Processed by Thols Labs on 25/1/2024 @ 13:48:30 https://www.github.com/tholkappiar */
 //  // TODO : Remove the api and generate the normal the fingerprint.
 
 //     // Initialize the agent once at web application startup.
@@ -65,8 +65,8 @@ $('.btn-like').on('click', function(){
     $(this).html() == "Like" ? $(this).html("Liked") : $(this).html("Like");
     $(this).hasClass('btn-outline-primary') ? $(this).removeClass('btn-outline-primary').addClass('btn-primary') : $(this).removeClass('btn-primary').addClass('btn-outline-primary');
     $.post('/api/post/like', {
-        id: post_id
-    }, function(data, textSuccess, xhr){
+        post_id: post_id
+    }, function(data, textSuccess){
         if(textSuccess == "success"){
             if(data.liked){
                 $($this).html("Liked");
@@ -77,6 +77,5 @@ $('.btn-like').on('click', function(){
             }
         }
     });
-    // console.log('hi')
 });
 //# sourceMappingURL=app.js.map

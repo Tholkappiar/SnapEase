@@ -42,8 +42,11 @@ class YourClass {
 // $a->delete();
 
 $l = new like();
-$result = $l->liker('31a6b5568bbb9c350c1b296d9086acf0');
-print($result);
+$result = $l->liker('');
+// print($result);
+
+// $p = new Post(68);
+// $l->initialize($p);
 
 
 ?>

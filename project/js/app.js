@@ -64,8 +64,8 @@ $('.btn-like').on('click', function(){
     $(this).html() == "Like" ? $(this).html("Liked") : $(this).html("Like");
     $(this).hasClass('btn-outline-primary') ? $(this).removeClass('btn-outline-primary').addClass('btn-primary') : $(this).removeClass('btn-primary').addClass('btn-outline-primary');
     $.post('/api/post/like', {
-        id: post_id
-    }, function(data, textSuccess, xhr){
+        post_id: post_id
+    }, function(data, textSuccess){
         if(textSuccess == "success"){
             if(data.liked){
                 $($this).html("Liked");
@@ -76,5 +76,4 @@ $('.btn-like').on('click', function(){
             }
         }
     });
-    // console.log('hi')
 });
