@@ -7,7 +7,7 @@
       $is_authenticated = Sessions::isAuthenticated(); // Check if the user is authenticated
       $user_id = $is_authenticated ? Sessions::get('uid') : null;
       
-      print("auth : " . $is_authenticated);
+      // print("auth : " . $is_authenticated);
 
       use Carbon\Carbon;
 
@@ -28,12 +28,15 @@
       ?>
         <div class="col-lg-4 mb-4" id="post-<?= $post['id'] ?>">
         <div class="card">
-            <div class="d-flex ">
+        <div class="d-flex justify-content-between">
+            <div>
                 <i class="fa-regular fa-user p-3" style="color: #ffffff;"></i>
                 <small class="h6 p-3 pb-0 ps-0"><?= $user->data['username'] ?></small>
             </div>
+            <i class="fa-solid fa-user-plus p-3" style="color: #ffffff;"></i>
+        </div>
             <img class="bd-placeholder-img card-img-top p-3" src="<?= $p->getImageUri() ?>">
-            <div class="card-body">
+            <div class="card-body pt-0">
                 <p class="card-text"><?= $p->getPostText() ?></p>
                 <div class="d-flex justify-content-between align-items-center">
                     <!-- Like button -->
