@@ -61,19 +61,25 @@
 $('.btn-like').on('click', function(){
     post_id = $(this).parent().attr('data-id');
     $this = $(this);
-    $(this).html() == "Like" ? $(this).html("Liked") : $(this).html("Like");
-    $(this).hasClass('btn-outline-primary') ? $(this).removeClass('btn-outline-primary').addClass('btn-primary') : $(this).removeClass('btn-primary').addClass('btn-outline-primary');
+
+    if ($(this).hasClass('fa-regular')) {
+        $(this).removeClass('fa-regular').addClass('fa-solid').css('color', '#fe4d4d').addClass('like-animation'); // Liked
+    } else {
+        $(this).removeClass('fa-solid').addClass('fa-regular').css('color', '#ffffff').addClass('like-animation'); // Not liked
+    }
     $.post('/api/post/like', {
         post_id: post_id
     }, function(data, textSuccess){
         if(textSuccess == "success"){
+            setTimeout(function() {
+                $($this).removeClass('like-animation');
+            }, 1000);
             if(data.liked){
-                $($this).html("Liked");
-                $($this).removeClass('btn-outline-primary').addClass('btn-primary');
+                $($this).removeClass('fa-regular').addClass('fa-solid').css('color', '#fe4d4d'); // Liked
             } else {
-                $($this).html("Like");
-                $($this).removeClass('btn-primary').addClass('btn-outline-primary');
+                $($this).removeClass('fa-solid').addClass('fa-regular').css('color', '#ffffff'); // Not liked
             }
         }
+        
     });
 });
