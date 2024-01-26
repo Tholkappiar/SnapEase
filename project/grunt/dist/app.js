@@ -1,4 +1,4 @@
-/*Processed by Thols Labs on 25/1/2024 @ 13:48:30 https://www.github.com/tholkappiar */
+/*Processed by Thols Labs on 26/1/2024 @ 9:17:36 https://www.github.com/tholkappiar */
 //  // TODO : Remove the api and generate the normal the fingerprint.
 
 //     // Initialize the agent once at web application startup.
@@ -80,6 +80,27 @@ $('.btn-like').on('click', function(){
             } else {
                 $($this).removeClass('fa-solid').addClass('fa-regular').css('color', '#ffffff'); // Not liked
             }
+        }
+        
+    });
+});
+
+$('.follow-user').on('click', function(){
+    post_id = $(this).closest('.col-lg-4').attr('id').replace('post-', '');
+    console.log(post_id);
+    $this = $(this);
+
+    if ($(this).hasClass('fa-user-plus')) {
+        $(this).removeClass('fa-user-plus').addClass('fa-user-minus'); 
+    } else {
+        $(this).removeClass('fa-user-minus').addClass('fa-user-plus');
+    }
+
+    $.post('/api/post/follow', {
+        post_id: post_id
+    }, function(data, textSuccess){
+        if(textSuccess == "success"){
+            console.log("sucess da");
         }
         
     });

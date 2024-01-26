@@ -61,18 +61,18 @@ class like{
             return false;
         }
     }
-    public function toggleLike($user_id,$post_id)
-    {
-        $liked = $this->isLiked($user_id, $post_id);
+    // public function toggleLike($user_id,$post_id)
+    // {
+    //     $liked = $this->isLiked($user_id, $post_id);
     
-        if ($liked) {
-            $this->deleteLike($user_id, $post_id);
-            return false; // Post unliked
-        } else {
-            $this->insertLike($user_id, $post_id);
-            return true; // Post liked
-        }
-    }
+    //     if ($liked) {
+    //         $this->deleteLike($user_id, $post_id);
+    //         return false; // Post unliked
+    //     } else {
+    //         $this->insertLike($user_id, $post_id);
+    //         return true; // Post liked
+    //     }
+    // }
 
     // return the liker id from each post  
     public function liker($post_id){

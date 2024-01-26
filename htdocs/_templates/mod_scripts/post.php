@@ -20,7 +20,7 @@
 
         $userid = Sessions::get('uid');
         $post_id = $post['id'];
-        $id = md5($userid . $ $post_id);      
+        $id = md5($userid . $post_id);      
         $like = new like();
         $like_cond = $is_authenticated ? $like->isLiked($user_id, $post_id) : false;
         // print("this is like : " . $like_cond);
@@ -28,12 +28,12 @@
       ?>
         <div class="col-lg-4 mb-4" id="post-<?= $post['id'] ?>">
         <div class="card">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between post-header">
             <div>
                 <i class="fa-regular fa-user p-3" style="color: #ffffff;"></i>
                 <small class="h6 p-3 pb-0 ps-0"><?= $user->data['username'] ?></small>
             </div>
-            <i class="fa-solid fa-user-plus p-3" style="color: #ffffff;"></i>
+            <i class="fa-solid fa-user-plus p-3 follow-user" style="color: #ffffff;"></i>
         </div>
             <img class="bd-placeholder-img card-img-top p-3" src="<?= $p->getImageUri() ?>">
             <div class="card-body pt-0">

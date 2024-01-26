@@ -17,7 +17,7 @@ ${basename(__FILE__, '.php')} = function () {
         $this->response($this->json([
             'liked' => !$is_liked
         ]), 200);
-    } else {
+        } else {
         $this->response($this->json([
             'message' => "bad request"
         ]), 400);

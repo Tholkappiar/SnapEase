@@ -9,6 +9,7 @@ include_once($_SERVER['DOCUMENT_ROOT']. "_libs/Post/Post.class.php");
 include_once($_SERVER['DOCUMENT_ROOT']. "_includes/REST.class.php");
 include_once($_SERVER['DOCUMENT_ROOT']. "_includes/API.class.php");
 include_once($_SERVER['DOCUMENT_ROOT']. "_libs/Post/Like.class.php");
+include_once($_SERVER['DOCUMENT_ROOT']. "_libs/Post/Follow.class.php");
 
 session_cache_limiter('none');
 session_start();

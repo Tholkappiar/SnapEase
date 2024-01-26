@@ -25,29 +25,11 @@
 
 include ("./_libs/load.php");
 
-
-class YourClass {
-    use SqlGetterSetter;
-
-    // Set the necessary properties
-    public $id; // Assuming you have an id property in your class
-    public $conn; // Assuming you have a connection property in your class
-    // Set your table name
-
-    // Constructor or other methods if needed
-}
-
-// $a = new YourClass();
-// $a->table = 'thols';
-// $a->delete();
-
-$l = new like();
-$result = $l->liker('');
-// print($result);
-
-// $p = new Post(68);
-// $l->initialize($p);
-
+$f = new Follow();
+// $result = $f->post_to_id(60);
+// print_r($result);
+$result = $f->follow_user(68,168,172);
+print $result;
 
 ?>
 
