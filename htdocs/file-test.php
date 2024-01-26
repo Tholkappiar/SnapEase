@@ -25,8 +25,12 @@
 
 include ("./_libs/load.php");
 
-$u = new User(72);
-print_r($u->data['username']);
+// $u = new User(72);
+// print_r($u->data['username']);
+
+$f = new Follow();
+$result = $f->getUsername(70);
+print($result);
 
 ?>
 

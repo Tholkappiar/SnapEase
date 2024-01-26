@@ -104,5 +104,50 @@ class Follow
         
         return $total_following;
     }
-    
+
+    public function getFollowers($uid)
+    {
+        $followers = array();
+
+        $query_followers = "SELECT `follower_user_id` FROM `followers` WHERE `followed_user_id`='$uid';";
+        $result_followers = $this->conn->query($query_followers);
+
+        if ($result_followers->num_rows > 0) {
+            while ($row = $result_followers->fetch_assoc()) {
+                $followers[] = $row['follower_user_id'];
+            }
+        }
+
+        return $followers;
+    }
+
+    public function getFollowing($uid)
+    {
+        $following = array();
+
+        $query_following = "SELECT `followed_user_id` FROM `followers` WHERE `follower_user_id`='$uid';";
+        $result_following = $this->conn->query($query_following);
+
+        if ($result_following->num_rows > 0) {
+            while ($row = $result_following->fetch_assoc()) {
+                $following[] = $row['followed_user_id'];
+            }
+        }
+
+        return $following;
+    }
+
+    public function getUsername($uid)
+    {
+        $query_username = "SELECT `username` FROM `_auth` WHERE `id`='$uid';";
+        $result_username = $this->conn->query($query_username);
+
+        if ($result_username->num_rows > 0) {
+            $row = $result_username->fetch_assoc();
+            return $row['username'];
+        } else {
+            // if there is no id
+            return null; 
+        }
+    }
 }
