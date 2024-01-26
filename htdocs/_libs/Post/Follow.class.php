@@ -63,15 +63,22 @@ class Follow
         }
     }
 
-    public function toggleFollow($uid, $follower_id, $followed_id){
 
+    public function isFollowing($uid, $follower_id, $followed_id){
         $query = "SELECT COUNT(*) AS count FROM `followers` WHERE `uid`='$uid' 
                   AND `follower_user_id`='$follower_id' AND `followed_user_id`='$followed_id';";
         $result = $this->conn->query($query);
         $row = $result->fetch_assoc();
         $count = $row['count'];
     
-        if($count > 0){
+        return $count > 0;
+    }
+
+    public function toggleFollow($uid, $follower_id, $followed_id){
+
+        $isFollowed = $this->isFollowing($uid, $follower_id, $followed_id);
+    
+        if($isFollowed > 0){
             $this->unfollow_user($uid, $follower_id, $followed_id);
             return "Unfollowed successfully";
         } else {
