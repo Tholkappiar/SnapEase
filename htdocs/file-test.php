@@ -25,11 +25,8 @@
 
 include ("./_libs/load.php");
 
-$f = new Follow();
-// $result = $f->post_to_id(60);
-// print_r($result);
-$result = $f->follow_user(68,168,172);
-print $result;
+$u = new User(72);
+print_r($u->data['username']);
 
 ?>
 

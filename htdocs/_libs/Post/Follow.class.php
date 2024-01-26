@@ -44,7 +44,7 @@ class Follow
 
             $result = $this->conn->query($query);
             if ($result) {
-                return "Followed successfully";
+                return true;
             } else {
                 throw new Exception("follow_user :: Follow.class.php " . $this->conn->error);
             }
@@ -57,7 +57,7 @@ class Follow
                   AND `followed_user_id`='$followed_id';";
         $result = $this->conn->query($query);
         if ($result) {
-            return "Unfollowed successfully";
+            return false;
         } else {
             throw new Exception("unfollow_user :: Follow.class.php " . $this->conn->error);
         }
@@ -80,11 +80,29 @@ class Follow
     
         if($isFollowed > 0){
             $this->unfollow_user($uid, $follower_id, $followed_id);
-            return "Unfollowed successfully";
+            return true;
         } else {
             $this->follow_user($uid, $follower_id, $followed_id);
-            return "Followed successfully";
+            return false;
         }
+    }
+
+    public function getTotalFollowers($uid) {
+        $query_followers = "SELECT COUNT(*) AS total_followers FROM `followers` WHERE `followed_user_id`='$uid';";
+        $result_followers = $this->conn->query($query_followers);
+        $row_followers = $result_followers->fetch_assoc();
+        $total_followers = $row_followers['total_followers'];
+        
+        return $total_followers;
+    }
+    
+    public function getTotalFollowing($uid) {
+        $query_following = "SELECT COUNT(*) AS total_following FROM `followers` WHERE `follower_user_id`='$uid';";
+        $result_following = $this->conn->query($query_following);
+        $row_following = $result_following->fetch_assoc();
+        $total_following = $row_following['total_following'];
+        
+        return $total_following;
     }
     
 }

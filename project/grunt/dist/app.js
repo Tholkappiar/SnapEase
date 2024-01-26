@@ -1,4 +1,4 @@
-/*Processed by Thols Labs on 26/1/2024 @ 9:17:36 https://www.github.com/tholkappiar */
+/*Processed by Thols Labs on 26/1/2024 @ 13:34:16 https://www.github.com/tholkappiar */
 //  // TODO : Remove the api and generate the normal the fingerprint.
 
 //     // Initialize the agent once at web application startup.
@@ -87,22 +87,43 @@ $('.btn-like').on('click', function(){
 
 $('.follow-user').on('click', function(){
     post_id = $(this).closest('.col-lg-4').attr('id').replace('post-', '');
-    console.log(post_id);
+    // console.log(post_id);
     $this = $(this);
 
     if ($(this).hasClass('fa-user-plus')) {
-        $(this).removeClass('fa-user-plus').addClass('fa-user-minus'); 
+        $(this).removeClass('fa-user-plus').addClass('fa-user-minus');
+        $(this).css('color', '#ffffff');
     } else {
         $(this).removeClass('fa-user-minus').addClass('fa-user-plus');
+        $(this).css('color', '#74C0FC');
     }
 
     $.post('/api/post/follow', {
         post_id: post_id
     }, function(data, textSuccess){
         if(textSuccess == "success"){
-            console.log("sucess da");
+            // console.log("sucess da");
         }
         
+    });
+});
+
+$('.header-profile').on('click', function(){
+
+    $.post('/api/post/followercount', {
+        // post_id: post_id
+    }, function(data, textSuccess){
+        if(textSuccess == "success"){
+            $('#followers-count').text(data['message']);
+        }
+    });
+
+    $.post('/api/post/followingcount', {
+        // post_id: post_id
+    }, function(data, textSuccess){
+        if(textSuccess == "success"){
+            $('#following-count').text(data['message']);
+        }
     });
 });
 //# sourceMappingURL=app.js.map

@@ -39,7 +39,7 @@
                             <?php if ($follow_cond) { ?>
                                 <i class="fa-solid fa-user-minus p-3 follow-user" style="color: #ffffff;"></i>
                             <?php } else { ?>
-                                <i class="fa-solid fa-user-plus p-3 follow-user" style="color: #ffffff;"></i>
+                                <i class="fa-solid fa-user-plus p-3 follow-user" style="color: #74C0FC;"></i>
                             <?php } ?>
                         </div>
                         <img class="bd-placeholder-img card-img-top p-3" src="<?= $p->getImageUri() ?>">
