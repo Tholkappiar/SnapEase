@@ -17,7 +17,7 @@ if (isset($_POST["first-name"]) && isset($_POST["last-name"]) && isset($_POST["e
     ?>
 
     <div class="vh-100 d-flex justify-content-center align-items-center">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
         <div class="col-md-4">
             <div class="border border-3 border-success"></div>
             <div class="card  bg-white shadow p-5">
