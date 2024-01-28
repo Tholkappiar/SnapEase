@@ -150,4 +150,16 @@ class Follow
             return null; 
         }
     }
+
+    public function get_uid($username){
+        $query = "SELECT `uid` FROM `_auth` WHERE `username`='$username';";
+        $result_uid = $this->conn->query($query);
+
+        if ($result_uid->num_rows > 0) {
+            $row = $result_uid->fetch_assoc();
+            return $row['uid'];
+        } else {
+            return null; 
+        }
+    }
 }
