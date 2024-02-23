@@ -11,34 +11,32 @@ class User
     public $id;
     public $data;
 
-    public static function signup($username,$first_name, $last_name, $email_addr, $pass)
+    public static function signup($username, $first_name, $last_name, $email_addr, $pass)
     {
         $conn = Database::getConnection();
         $options = [
             'cost' => 10,
         ];
         $pass = password_hash($pass, PASSWORD_BCRYPT, $options);
-        $sql = "INSERT INTO `_auth` (`username`,`first_name`, `last_name`, `email`, `password`)
-        VALUES ('$username', '$first_name', '$last_name', '$email_addr', '$pass')";
-
-        if ($conn->query($sql)) {
+        $stmt = $conn->prepare("INSERT INTO `_auth` (`username`, `first_name`, `last_name`, `email`, `password`)
+                                VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $username, $first_name, $last_name, $email_addr, $pass);
+        if ($stmt->execute()) {
             $error = false;
         } else {
-            $error = $conn->error;
+            $error = $stmt->error;
         }
-
+        $stmt->close();
         return $error;
     }
 
     public static function login($email, $password)
     {
-        // query to be passed
-        $query = "SELECT * FROM `_auth` WHERE `email` = '$email'";
-        // database connection
         $conn = Database::getConnection();
-        // getting the results from the database
-        $result = $conn->query($query);
-        // checking the table for the email and password
+        $stmt = $conn->prepare("SELECT * FROM `_auth` WHERE `email` = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row["password"])) {
@@ -54,25 +52,25 @@ class User
     //TODO: change this from username to uid , to fetch all the info about the user.
     public function __construct($uid)
     {
-        if(!$this->conn){
-            $this->conn = Database::getConnection();
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
+        $this->conn = Database::getConnection();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
         $this->table = "_auth";
-        $query = "SELECT * FROM `_auth` WHERE `id`= '$uid';";
-        $response = $this->conn->query($query);
-        if ($response->num_rows == 1) {
-            $result = $response->fetch_assoc();
-            $this->id = $result["id"];
-            $this->data = $result;
-            // print_r($this->data[]);
-            // print_r($this->id);
+        $query = "SELECT * FROM `_auth` WHERE `id`= ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $uid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows == 1) {
+            $this->data = $result->fetch_assoc();
+            $this->id = $this->data["id"];
         } else {
-            throw new Exception("user doesn't found");
+            throw new Exception("User not found");
         }
+        $stmt->close();
     }
+
 
 
     // private function get_details_by_column($column)

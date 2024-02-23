@@ -23,10 +23,15 @@ class Post
                 // TODO: Handle sql Injection 
                 $image_uri = "/files/$image_name";
                 $insert_command = "INSERT INTO `_posts` (`uid`, `multi_img`, `post_text`, `image_uri`, 
-                `like`, `uploaded_time`) VALUES ('$uid', 0, '$post_caption', '$image_uri', '0', now());";
+                `like`, `uploaded_time`) VALUES (?, 0, ?, ?, '0', now())";
+                $conn = Database::getConnection();
+                $stmt = $conn->prepare($insert_command);
 
-                $db = Database::getConnection();
-                if ($db->query($insert_command)) {
+                // Bind parameters
+                $stmt->bind_param("iss", $uid, $post_caption, $image_uri);
+
+                // Execute the statement
+                if ($stmt->execute()) {
                     return true;
                 } else {
                     return false;
