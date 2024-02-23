@@ -19,6 +19,8 @@ class Post
             $image_path = get_config('upload_path') . $image_name;
             
             if (move_uploaded_file($image_tmp, $image_path)) {
+                // $post_caption = mysqli_real_escape_string($post_caption); 
+                // TODO: Handle sql Injection 
                 $image_uri = "/files/$image_name";
                 $insert_command = "INSERT INTO `_posts` (`uid`, `multi_img`, `post_text`, `image_uri`, 
                 `like`, `uploaded_time`) VALUES ('$uid', 0, '$post_caption', '$image_uri', '0', now());";

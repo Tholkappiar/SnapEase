@@ -54,7 +54,7 @@
                                         <i class="fa-regular fa-heart btn-like me-3 fa-lg" style="color: #ffffff;"></i>
                                     <?php } ?>
                                     <!-- Other buttons -->
-                                    <i class="fa-solid fa-share me-3 fa-lg" style="color: #ffffff;"></i>
+                                    <!-- <i class="fa-solid fa-share me-3 fa-lg" style="color: #ffffff;"></i> -->
                                     <?php if (Sessions::isOwner($p->getUid())) { ?>
                                         <i class="fa-solid fa-trash btn-delete me-3 fa-lg" style="color: #ffffff;"></i>
                                     <?php } ?>

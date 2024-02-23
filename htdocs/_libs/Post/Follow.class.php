@@ -71,7 +71,7 @@ class Follow
         $row = $result->fetch_assoc();
         $count = $row['count'];
     
-        return $count > 0;
+        return $count;
     }
 
     public function toggleFollow($uid, $follower_id, $followed_id){

@@ -1,4 +1,4 @@
--- Adminer 4.8.1 MySQL 8.1.0 dump
+-- Adminer 4.8.1 MySQL 8.3.0 dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -7,9 +7,8 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-DROP DATABASE IF EXISTS `SnapEase_Thols_SnapEase`;
-CREATE DATABASE `SnapEase_Thols_SnapEase` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `SnapEase_Thols_SnapEase`;
+CREATE DATABASE `thols_SnapEase` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `thols_SnapEase`;
 
 DROP TABLE IF EXISTS `_auth`;
 CREATE TABLE `_auth` (
@@ -74,13 +73,39 @@ CREATE TABLE `_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `followers`;
+CREATE TABLE `followers` (
+  `follower_id` int NOT NULL AUTO_INCREMENT,
+  `uni_hash` varchar(32) NOT NULL,
+  `uid` int NOT NULL,
+  `follower_user_id` int NOT NULL,
+  `followed_user_id` int NOT NULL,
+  `follow_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`follower_id`),
+  UNIQUE KEY `uni_hash` (`uni_hash`),
+  KEY `uid` (`uid`),
+  KEY `follower_user_id` (`follower_user_id`),
+  KEY `followed_user_id` (`followed_user_id`),
+  CONSTRAINT `followers_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `_auth` (`id`),
+  CONSTRAINT `followers_ibfk_2` FOREIGN KEY (`follower_user_id`) REFERENCES `_auth` (`id`),
+  CONSTRAINT `followers_ibfk_3` FOREIGN KEY (`followed_user_id`) REFERENCES `_auth` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 DROP TABLE IF EXISTS `likes`;
 CREATE TABLE `likes` (
   `id` varchar(32) NOT NULL,
   `uid` int NOT NULL,
   `post_id` int NOT NULL,
-  `time` timestamp NOT NULL,
-  KEY `uid` (`uid`)
+  `time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `liker` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `post_id` (`post_id`),
+  KEY `liker` (`liker`),
+  CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `_auth` (`id`),
+  CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `_posts` (`id`),
+  CONSTRAINT `likes_ibfk_3` FOREIGN KEY (`liker`) REFERENCES `_auth` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -96,4 +121,4 @@ CREATE TABLE `multi_image` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- 2024-01-24 02:28:36
+-- 2024-02-23 13:10:48

@@ -1,9 +1,9 @@
 {
 
     "servername" : "mysql.selfmade.ninja",
-    "username" : "SnapEase_Thols",
+    "username" : "thols",
     "password" : "thols@123",
-    "dbname" : "SnapEase_Thols_SnapEase",
+    "dbname" : "thols_SnapEase",
     "upload_path" : "/home/Tholkappiar2003/snapease_post/"
 
 }

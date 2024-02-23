@@ -63,6 +63,7 @@
             // Total Followers and Following Count
             $follow = new Follow();
             ?>
+            <? if(isset($username)) { ?>
             <div class="modal-body">
               <div class="mb-3">
                 <span style="font-size: 16px; font-weight: bold;" class="text-muted">Welcome ,</span>
@@ -79,6 +80,7 @@
                 </div>
               </div>
             </div>
+            <? } ?>
             <!-- <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary">Save changes</button>
