@@ -57,6 +57,9 @@ trait SqlGetterSetter
     }
 
     public function delete(){
+        if (!$this->conn) {
+            $this->conn = Database::getConnection();
+        }
         try {
             $query = "DELETE FROM `$this->table` WHERE `id`=?";
             $stmt = $this->conn->prepare($query);

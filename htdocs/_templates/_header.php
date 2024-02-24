@@ -30,6 +30,7 @@
       </a>
 
       <ul class="nav nav-pills">
+        <li class="nav-link" data-bs-toggle="modal" data-bs-target="#uploadModal"><i class="fa-solid fa-upload" style="color: #00bfff;"></i></a></li>
         <li class="nav-item"><a href="/All_post.php" class="nav-link" aria-current="page"><i class="fa-solid fa-magnifying-glass"></i></a></li>
         <?
         if (Sessions::isAuthenticated()) {
@@ -63,23 +64,23 @@
             // Total Followers and Following Count
             $follow = new Follow();
             ?>
-            <? if(isset($username)) { ?>
-            <div class="modal-body">
-              <div class="mb-3">
-                <span style="font-size: 16px; font-weight: bold;" class="text-muted">Welcome ,</span>
-                <span style="font-size: 18px; font-weight: bold;"><?= " " . $username . " " ?>!</span>
-              </div>
-              <div class="d-flex justify-content-around">
-                <div id="followers-main" data-bs-target="#followers-toggle" data-bs-dismiss="modal" data-bs-toggle="modal">
-                  <strong class="mb-2">Followers</strong>
-                  <p class="mb-2" id="followers-count"></p>
+            <? if (isset($username)) { ?>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <span style="font-size: 16px; font-weight: bold;" class="text-muted">Welcome ,</span>
+                  <span style="font-size: 18px; font-weight: bold;"><?= " " . $username . " " ?>!</span>
                 </div>
-                <div id="following-main" data-bs-target="#following-toggle" data-bs-dismiss="modal" data-bs-toggle="modal">
-                  <strong class="mb-2">Following</strong>
-                  <p class="mb-2" id="following-count"></p>
+                <div class="d-flex justify-content-around">
+                  <div id="followers-main" data-bs-target="#followers-toggle" data-bs-dismiss="modal" data-bs-toggle="modal">
+                    <strong class="mb-2">Followers</strong>
+                    <p class="mb-2" id="followers-count"></p>
+                  </div>
+                  <div id="following-main" data-bs-target="#following-toggle" data-bs-dismiss="modal" data-bs-toggle="modal">
+                    <strong class="mb-2">Following</strong>
+                    <p class="mb-2" id="following-count"></p>
+                  </div>
                 </div>
               </div>
-            </div>
             <? } ?>
             <!-- <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -88,7 +89,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Modal for Followers List -->
       <div class="modal fade" id="followers-toggle" aria-hidden="true" aria-labelledby="followersToggleLabel" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -108,7 +109,7 @@
       </div>
 
       <div class="modal fade" id="following-toggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalToggleLabel2">Following List</h5>
@@ -123,7 +124,42 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="uploadModalLabel">Upload Post</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Your code snippet goes here -->
+              <?php
+              if (isset($_POST['post_caption']) and isset($_FILES['post_image'])) {
+                $image_tmp = $_FILES['post_image']['tmp_name'];
+                $text = $_POST['post_caption'];
+                Post::registerPost($text, $image_tmp);
+              }
+              ?>
+              <form method="post" action="/" enctype="multipart/form-data">
+                <div class="form-floating mb-3">
+                  <textarea name="post_caption" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                  <label for="floatingTextarea">Caption</label>
+                </div>
+                <div class="mb-3">
+                  <input name="post_image" accept="image/*" class="form-control" type="file" id="formFile">
+                </div>
+                <button type="submit" class="btn btn-success">Upload</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </body>
+<script>
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+</script>
 
 </html>
