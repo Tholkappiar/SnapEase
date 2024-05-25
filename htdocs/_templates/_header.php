@@ -30,7 +30,11 @@
       </a>
 
       <ul class="nav nav-pills">
+      <?
+        if (Sessions::isAuthenticated()) {
+        ?>
         <li class="nav-link" data-bs-toggle="modal" data-bs-target="#uploadModal"><i class="fa-solid fa-upload" style="color: #00bfff;"></i></a></li>
+        <?}?>
         <li class="nav-item"><a href="/All_post.php" class="nav-link" aria-current="page"><i class="fa-solid fa-magnifying-glass"></i></a></li>
         <?
         if (Sessions::isAuthenticated()) {
