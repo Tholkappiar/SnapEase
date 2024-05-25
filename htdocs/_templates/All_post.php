@@ -20,7 +20,7 @@
 
         $userid = Sessions::get('uid');
         $post_id = $post['id'];
-        $id = md5($userid . $ $post_id);      
+        $id = md5($userid . $post_id);      
         $like = new like();
         $like_cond = $is_authenticated ? $like->isLiked($user_id, $post_id) : false;
         // print("this is like : " . $like_cond);
